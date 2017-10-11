@@ -1,0 +1,13 @@
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="layout_height">50dp</dimen>
+    <dimen name="small_margin">10dp</dimen>
+    <dimen name="zero">0dp</dimen>
+    <dimen name="default_font">20sp</dimen>
+    <dimen name="small_font">15sp</dimen>
+    <dimen name="sale_width">100dp</dimen>
+    <dimen name="sale_height">50dp</dimen>
+    <dimen name="plus_minus_width">40dp</dimen>
+    <dimen name="plus_minus_height">40dp</dimen>
+</resources>
+

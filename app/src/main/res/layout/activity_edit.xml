@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/fab_margin"
+    android:background="@color/mainBackground"
+    tools:context="com.example.android.inventory.EditActivity">
+
+        <ImageView
+            android:id="@+id/image"
+            android:src="@drawable/add_image"
+            android:scaleType="fitXY"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_height"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="@dimen/zero"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@android:color/black"
+            android:text="@string/name_product"
+            android:textSize="@dimen/default_font"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:id="@+id/edit_name"
+            android:maxLength="20"
+            android:layout_width="@dimen/zero"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:textAlignment="center"
+            android:hint="@string/name_product"
+            android:textSize="@dimen/default_font" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_height"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="@dimen/zero"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/price_product"
+            android:textSize="@dimen/default_font"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:id="@+id/edit_price"
+            android:layout_width="@dimen/zero"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:textAlignment="center"
+            android:hint="@string/price_product"
+            android:inputType="numberDecimal"
+            android:textSize="@dimen/default_font" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/layout_height"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="@dimen/zero"
+            android:layout_height="wrap_content"
+            android:layout_weight="2.5"
+            android:textColor="@android:color/black"
+            android:text="@string/quantity_product"
+            android:textSize="@dimen/default_font"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:id="@+id/edit_quantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/small_margin"
+            android:layout_marginRight="@dimen/fab_margin"
+            android:layout_weight="0.5"
+            android:textAlignment="center"
+            android:hint="@string/quantity_product"
+            android:inputType="number"
+            android:textSize="@dimen/default_font" />
+        <Button
+            android:id="@+id/button_increase"
+            android:layout_width="@dimen/plus_minus_width"
+            android:layout_height="@dimen/plus_minus_height"
+            android:layout_weight="0.5"
+            android:layout_marginEnd="@dimen/fab_margin"
+            android:layout_marginRight="@dimen/fab_margin"
+            android:text="@string/plus_quantity"
+            android:textStyle="bold"
+            android:visibility="gone"
+            android:background="@color/colorAccent"/>
+        <Button
+            android:id="@+id/button_decrease"
+            android:layout_width="@dimen/plus_minus_width"
+            android:layout_height="@dimen/plus_minus_height"
+            android:layout_weight="0.5"
+            android:background="@color/colorAccent"
+            android:text="@string/minus_quantity"
+            android:visibility="gone"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/button_mail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/mail"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/fab_margin"
+        android:visibility="gone" />
+
+</LinearLayout>

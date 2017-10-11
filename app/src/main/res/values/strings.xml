@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Inventory</string>
+    <string name="empty_store_text">Please add new product from the button below</string>
+    <string name="delete_all">Delete all</string>
+    <string name="save_product">Save</string>
+    <string name="delete_product">Delete</string>
+    <string name="edit_product">Edit</string>
+    <string name="send_email">Mail</string>
+    <string name="add_photo">Import image</string>
+    <string name="name_product">Name:</string>
+    <string name="price_product">Price:</string>
+    <string name="quantity_product_buy">Order:</string>
+    <string name="quantity_product">Quantity:</string>
+    <string name="in_stock">In stock:</string>
+    <string name="edit_label">Edit</string>
+    <string name="sale_label">Sale</string>
+    <string name="add_label">Add</string>
+    <string name="plus_quantity">+</string>
+    <string name="minus_quantity">-</string>
+    <string name="zero">0</string>
+</resources>
