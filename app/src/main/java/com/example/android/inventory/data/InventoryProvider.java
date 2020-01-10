@@ -19,6 +19,8 @@ public class InventoryProvider extends ContentProvider {
 
     private static final int PRODUCT_ID = 101;
 
+    private static final int PRODUCT_SEARCH = 102;
+
     private static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
     static {
@@ -26,6 +28,8 @@ public class InventoryProvider extends ContentProvider {
                 InventoryContract.PATH_INVENTORY,PRODUCTS);
         uriMatcher.addURI(InventoryContract.CONTENT_AUTHORITY,
                 InventoryContract.PATH_INVENTORY+"/#",PRODUCT_ID);
+        uriMatcher.addURI(InventoryContract.CONTENT_AUTHORITY,
+                InventoryContract.PATH_INVENTORY+"/*",PRODUCT_SEARCH);
     }
 
     private InventoryDbHelper mDbHelper;
@@ -57,6 +61,9 @@ public class InventoryProvider extends ContentProvider {
                 cursor = sqLiteDatabase.query(InventoryContract.ProductEntry.TABLE_NAME,
                         projectDb,selection,selectionArgs,null,null,sortOrder);
                 break;
+            case PRODUCT_SEARCH:
+                cursor = sqLiteDatabase.query(InventoryContract.ProductEntry.TABLE_NAME,
+                        projectDb,selection,null,null,null,sortOrder);
             default:
         }
         cursor.setNotificationUri(getContext().getContentResolver(),uri);
@@ -72,6 +79,8 @@ public class InventoryProvider extends ContentProvider {
                 return InventoryContract.ProductEntry.CONTENT_LIST_TYPE;
             case PRODUCT_ID:
                 return InventoryContract.ProductEntry.CONTENT_ITEM_TYPE;
+            case PRODUCT_SEARCH:
+                return InventoryContract.ProductEntry.CONTENT_LIST_TYPE;
             default:
                 throw new IllegalStateException("Unknown URI"+uri+"with match"+matchUri);
         }

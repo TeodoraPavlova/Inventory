@@ -12,20 +12,23 @@ import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.example.android.inventory.data.InventoryContract;
 
-public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, SearchView.OnQueryTextListener {
 
     ItemCursorAdapter mAdapter;
     private static final int LOADER_ID=0;
+    String searchFilter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +101,14 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        MenuItem item = menu.add("Search");
+        item.setIcon(android.R.drawable.ic_menu_search);
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        SearchView searchView = new SearchView(MainActivity.this);
+        searchView.setOnQueryTextListener(this);
+        item.setActionView(searchView);
+
         return true;
     }
 
@@ -116,16 +127,26 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         switch (id) {
             case LOADER_ID:
-            String[] projection = {
-                    InventoryContract.ProductEntry._ID,
-                    InventoryContract.ProductEntry.PRODUCT_IMAGE,
-                    InventoryContract.ProductEntry.PRODUCT_NAME,
-                    InventoryContract.ProductEntry.PRODUCT_PRICE,
-                    InventoryContract.ProductEntry.PRODUCT_QUANTITY};
+                Uri baseUri;
 
-            return new CursorLoader(MainActivity.this,
-                    InventoryContract.ProductEntry.CONTENT_URI,
-                    projection, null, null, null);
+                if (searchFilter != null) {
+                    baseUri = Uri.withAppendedPath(InventoryContract.ProductEntry.CONTENT_URI,
+                            Uri.encode(searchFilter));
+                } else {
+                    baseUri = InventoryContract.ProductEntry.CONTENT_URI;
+                }
+
+                String selection = InventoryContract.ProductEntry.PRODUCT_NAME +" like '%"+searchFilter+"%'";
+                String[] projection = {
+                        InventoryContract.ProductEntry._ID,
+                        InventoryContract.ProductEntry.PRODUCT_IMAGE,
+                        InventoryContract.ProductEntry.PRODUCT_NAME,
+                        InventoryContract.ProductEntry.PRODUCT_PRICE,
+                        InventoryContract.ProductEntry.PRODUCT_QUANTITY};
+
+                return new CursorLoader(MainActivity.this,
+                        baseUri,
+                        projection, selection, null, null);
             default:
                 return null;
         }
@@ -139,5 +160,17 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         mAdapter.swapCursor(null);
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String s) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String s) {
+        searchFilter = !TextUtils.isEmpty(s) ? s : null;
+        getSupportLoaderManager().restartLoader(LOADER_ID, null, this);
+        return true;
     }
 }

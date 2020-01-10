@@ -82,6 +82,15 @@ public class EditActivity extends AppCompatActivity
         decreaseQuantityButton.setOnTouchListener(touchListener);
 
 
+        productImage = (ImageView) findViewById(R.id.image);
+        productImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkPermissionForImage(v);
+            }
+
+        });
+
         Intent intent = getIntent();
         currentUri = intent.getData();
 
@@ -289,16 +298,6 @@ public class EditActivity extends AppCompatActivity
                 (InventoryContract.ProductEntry.PRODUCT_PRICE, price);
         contentValues.put
                 (InventoryContract.ProductEntry.PRODUCT_QUANTITY, quantity);
-
-        productImage = (ImageView) findViewById(R.id.image);
-        productImage.setOnTouchListener(touchListener);
-        productImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                checkPermissionForImage(v);
-            }
-
-        });
 
         if (currentPhoto.equals("no image")|| name.isEmpty() || price.isEmpty() || quantity.isEmpty()) {
             Toast.makeText(this, "All fields are required.", Toast.LENGTH_SHORT).show();
